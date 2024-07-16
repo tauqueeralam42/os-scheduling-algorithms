@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
     <title>OS Scheduling Project</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <link rel="icon" type="image/png" href="assets/img/icon.png" />
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700" />
+    
+    <!-- Pikaday CSS CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css" />
-    <link rel="stylesheet" href="assets/css/Navigation-Clean.css" />
+    
+    <!-- Font Awesome CSS CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css" />
     <link rel="stylesheet" href="assets/css/radio_button.css">
     <link rel="stylesheet" href="assets/css/table.css">
     <link rel="stylesheet" href="assets/css/avg.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .form-check, .avg-text { margin-bottom: 0.5rem; }
+        .form-check-label { margin-left: 0.5rem; }
+        input[type="number"] { width: 100%; max-width: 300px; margin-bottom: 0.5rem; }
+        .container { max-width: 900px; padding: 1rem; }
+        table { width: 100%; margin-bottom: 1rem; }
+        th, td { padding: 0.5rem; text-align: center; }
+    </style>
 </head>
 
-<body >
+<body>
     <nav class="navbar navbar-dark navbar-expand-md navigation-clean">
-        <h2 >CPU SCHEDULAR</h2>
+        <h2>CPU SCHEDULAR</h2>
     </nav>
 
     <div class="container" style="height: 100vh;">
@@ -56,22 +75,16 @@
     
             <div>
                 <strong>Enter Arrival Time:</strong>
-                <span><input type="number" min="0" id="AT" placeholder="Enter Arrival Time" style="height: 30px; font-family: cursive;
-                            background-color: white; color: black; border: 2px solid
-                            black;"></span>
+                <span><input type="number" min="0" id="AT" placeholder="Enter Arrival Time" style="height: 30px; font-family: cursive; background-color: white; color: black; border: 2px solid black;"></span>
                 <br><br>
                 <br>
                 <strong>Enter Burst Time: &nbsp</strong>
-                <span><input type="number" min="0" id="BT" placeholder="Enter Burst Time" style="height: 30px; font-family: cursive;
-                            background-color: white; color: black; border: 2px solid
-                            black;"></span>
+                <span><input type="number" min="0" id="BT" placeholder="Enter Burst Time" style="height: 30px; font-family: cursive; background-color: white; color: black; border: 2px solid black;"></span>
                 <br><br>
                 <br>
                 <span id="timequanta" style="left: 0; display: none;">
                     <strong id="timetext">Enter Time Quanta: &nbsp</strong>
-                    <span><input type="number" min="0" id="TQ" placeholder="Enter Time Quanta" style="height: 30px;
-                                font-family: cursive; background-color: white;
-                                color: black; border: 2px solid black;"></span>
+                    <span><input type="number" min="0" id="TQ" placeholder="Enter Time Quanta" style="height: 30px; font-family: cursive; background-color: white; color: black; border: 2px solid black;"></span>
                 </span>
             </div>
             <br>
@@ -79,8 +92,7 @@
         <table id="table" style="width: 100%;">
             <thead>
                 <tr>
-                    <th colspan="9" style="width: 100%; text-align: center;font-size:larger">SCHEDULING
-                        TABLE</th>
+                    <th colspan="9" style="width: 100%; text-align: center;font-size:larger">SCHEDULING TABLE</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,22 +112,15 @@
         <br><br>
     
         <button type="button" id="add" class="btn btn-primary" onclick="addRow()">Add a Row +</button>
-        <button type="button" id="delete" class="btn btn-danger" onclick="deleteRow()">Delete a Row -
-        </button>
-        <div class="avg-text" id="average">Avg. Completion Time = <input class="ans-avg" type="text" id="averagebox1"
-                placeholder="0" readonly></div>
+        <button type="button" id="delete" class="btn btn-danger" onclick="deleteRow()">Delete a Row -</button>
+        <div class="avg-text" id="average">Avg. Completion Time = <input class="ans-avg" type="text" id="averagebox1" placeholder="0" readonly></div>
         <br><br>
         <button type="button" class="btn btn-success" id="execute" onclick="calculate()">Execute</button>
-        <div class="avg-text" id="average">Avg. Turn Around Time = <input class="ans-avg" type="text" id="averagebox2"
-                placeholder="0" readonly> </div>
+        <div class="avg-text" id="average">Avg. Turn Around Time = <input class="ans-avg" type="text" id="averagebox2" placeholder="0" readonly> </div>
         <br><br>
         <div id="animator" style="display: block; position: relative;">
-            <span id="cover" style="display: block; position: absolute; margin:
-                    0; top: 0; left: 2px; width: 100%; height: 100px;
-                    background-color: whitesmoke; z-index: 8;">
-            </span>
-            <table id="mytb" style="display: inline; position: absolute; top:
-                    2px; left: 2px;">
+            <span id="cover" style="display: block; position: absolute; margin: 0; top: 0; left: 2px; width: 100%; height: 100px; background-color: whitesmoke; z-index: 8;"></span>
+            <table id="mytb" style="display: inline; position: absolute; top: 2px; left: 2px;">
                 <tr id="processr"></tr>
                 <tr id="timer"></tr>
             </table>
@@ -123,20 +128,23 @@
         <br>
         <br>
         <br>
-        <div id="graph-container" style="padding: 50px;">
+        <div id="graph-container">
             <center>
-                <canvas id="myChart" width="800" height="650"></canvas>
+                <canvas id="myChart" width="600" height="400"></canvas>
             </center>
         </div>
         <br>
     </div>
-
     
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
+    <!-- Bootstrap JS CDN -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="assets/js/canvasjs.min.js"></script>
+    <script src="assets/js/os.js" defer></script>
+    <script src="assets/js/animation.js" defer></script>
+    <script src="assets/js/Chart.min.js" defer></script>
 </body>
-<script src="assets/js/canvasjs.min.js"></script>
-<script src="assets/js/os.js" defer></script>
-<script src="assets/js/animation.js" defer></script>
-<script src="assets/js/jquery.min.js" defer></script>
-<script src="assets/js/Chart.min.js" defer></script>
 </html>
